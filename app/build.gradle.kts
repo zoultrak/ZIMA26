@@ -17,10 +17,30 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        // OpenCV incluye librerías nativas para todas las arquitecturas; nos quedamos
-        // con las de teléfonos reales (ARM) y x86_64 para el emulador.
-        ndk {
-            abiFilters += listOf("arm64-v8a", "armeabi-v7a", "x86_64")
+    }
+
+    // OpenCV incluye librerías nativas pesadas: se genera un APK por arquitectura
+    // (el de arm64 sirve para casi cualquier móvil actual) y uno universal.
+    splits {
+        abi {
+            isEnable = true
+            reset()
+            include("arm64-v8a", "armeabi-v7a", "x86_64")
+            isUniversalApk = true
+        }
+    }
+
+    // Firma de release: se lee de ~/.gradle/gradle.properties (nunca del repositorio).
+    // Si no está configurada, se usa la clave de depuración.
+    val releaseStore = providers.gradleProperty("ZIMA26_STORE_FILE").orNull
+    signingConfigs {
+        if (releaseStore != null) {
+            create("release") {
+                storeFile = file(releaseStore)
+                storePassword = providers.gradleProperty("ZIMA26_STORE_PASSWORD").get()
+                keyAlias = providers.gradleProperty("ZIMA26_KEY_ALIAS").get()
+                keyPassword = providers.gradleProperty("ZIMA26_KEY_PASSWORD").get()
+            }
         }
     }
 
@@ -31,9 +51,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            // Firmado con la clave de depuración para poder instalar el APK release
-            // directamente. Para publicar en Play Store, crea tu propia clave.
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.findByName("release") ?: signingConfigs.getByName("debug")
         }
     }
 

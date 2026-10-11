@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Cámara de fuelle antigua sobre papel envejecido -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Marco de papel -->
+    <path android:fillColor="#ECDEC4" android:pathData="M30,32h48v44h-48z" />
+    <path android:fillColor="#3A332C" android:pathData="M34,36h40v32h-40z" />
+    <!-- Cuerpo de la cámara -->
+    <path android:fillColor="#B08A5A" android:pathData="M40,46h28v16h-28z" />
+    <path android:fillColor="#7A5C3A" android:pathData="M46,42h8v4h-8z" />
+    <!-- Objetivo -->
+    <path android:fillColor="#ECDEC4" android:pathData="M54,54m-6,0a6,6 0,1 1,12 0a6,6 0,1 1,-12 0" />
+    <path android:fillColor="#1B1A18" android:pathData="M54,54m-3.5,0a3.5,3.5 0,1 1,7 0a3.5,3.5 0,1 1,-7 0" />
+    <!-- Fecha manuscrita -->
+    <path android:strokeColor="#3A332C" android:strokeWidth="1.2" android:pathData="M35,72c2,-2 4,1 6,-1s3,1 5,-1 3,1 5,0" />
+</vector>
